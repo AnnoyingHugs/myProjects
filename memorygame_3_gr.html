@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Игра на память</title>
+</head>
+<body>
+	<div id="firstWordsForm">
+		<form action="" name="forma"> 
+			<p><b>Введите слова, которые хотите запомнить(через запятую):</b></p>
+			<input type="text" size="50" name="words">
+			<input type="button" value="Принять" onclick="show()">
+		</form>
+	</div>	
+	<script type="text/javascript">
+		var re = /\s*,\s*/; // удаляет пробелы
+		var slova = forma.words.value.toLowerCase().split(re); // массив со словами из формы с маленькими буквами и без пробелов 
+		
+		function compareRandom(a, b) { // перемешивает слова в массиве
+  			return Math.random() - 0.5;
+		}
+
+		slova.sort(compareRandom);
+		function show(){
+			console.log(slova);
+		}	
+
+	</script>
+	<p id="showlova"></p>
+</body>
+</html>
