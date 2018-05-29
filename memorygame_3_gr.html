@@ -6,26 +6,22 @@
 </head>
 <body>
 	<div id="firstWordsForm">
-		<form action="" name="forma"> 
+		<form action="" id="form"> 
 			<p><b>Введите слова, которые хотите запомнить(через запятую):</b></p>
-			<input type="text" size="50" name="words">
-			<input type="button" value="Принять" onclick="show()">
+			<input type="text" size="50" id="playerWords" name="playerWordsName">
+			<input type="button" value="Принять" onclick="game()">
 		</form>
 	</div>	
 	<script type="text/javascript">
-		var re = /\s*,\s*/; // удаляет пробелы
-		var slova = forma.words.value.toLowerCase().split(re); // массив со словами из формы с маленькими буквами и без пробелов 
-		
-		function compareRandom(a, b) { // перемешивает слова в массиве
-  			return Math.random() - 0.5;
-		}
-
-		slova.sort(compareRandom);
-		function show(){
-			console.log(slova);
+				function game(){
+					show();
+				}
+				function show(){
+			var words = form.playerWordsName.value;
+			var wordsList = words.toLowerCase().split(/\s*,\s*/); //массив со словами из формы с маленькими буквами и без пробелов 
+			document.write(wordsList);
 		}	
-
 	</script>
-	<p id="showlova"></p>
-</body>
+	<p id="playerWordsParagraph"></p>
+	</body>
 </html>
