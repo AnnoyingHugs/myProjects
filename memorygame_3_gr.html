@@ -3,25 +3,181 @@
 <head>
 	<meta charset="utf-8">
 	<title>Игра на память</title>
+	<link href="https://fonts.googleapis.com/css?family=Russo+One&amp;subset=cyrillic" rel="stylesheet"> 
+	<style type="text/css">
+		body {
+			background-image: url(http://www.blog.mamasturnnow.com/wp-content/uploads/2012/12/pile-of-words-300x300.jpg);
+		}
+		#gameName {
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			border: 5px solid #A0522D;
+			border-radius: 20px;
+			padding: 0px 450px 0px 450px;
+			position: fixed;
+            left: 35px;
+            top: 10px;
+            text-align: center;
+		}
+		#info {
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			border: 5px solid #A0522D;
+     		border-radius: 20px;
+      		padding: 10px 10px 10px 10px;
+			position: fixed;
+            left: 160px;
+            top: 175px;
+            font-size: 10pt;
+            text-align: center;
+            max-width: 1000px;
+		}
+		#footer {
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			border: 5px solid #A0522D;
+      		padding: 0px 5px 0px 5px;
+			position: fixed;
+            left: 500px;
+            top: 585px;
+            font-size: 7pt;
+            text-align: center;
+		}
+		#firstWordsForm {
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			border: 5px solid #A0522D;
+     		border-radius: 20px;
+      		padding: 10px 10px 100px 10px;
+			position: fixed;
+            left: 350px;
+            top: 280px;
+            font-size: 18pt;
+            text-align: center;
+            max-width: 600px;
+       	}	
+
+		#secondWordsForm {
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			border: 5px solid #A0522D;
+     		border-radius: 20px;
+      		padding: 10px 10px 100px 10px;
+			position: fixed;
+            left: 343px;
+            top: 280px;
+            font-size: 18pt;
+            text-align: center;
+            max-width: 600px;
+		}
+		#showWordsParagraph {
+			padding: 10px 10px 10px 10px;
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			position: absolute;
+            left: 465px;
+            top: 280px;
+            font-size: 18pt;
+            text-align: center;
+            max-width: 600px;
+		}
+		#showResultsParagraph {
+			padding: 10px 10px 10px 10px;
+			font-family: 'Russo One', sans-serif;
+			background-color: #DEB887;
+			position: absolute;
+            left: 420px;
+            top: 280px;
+            font-size: 18pt;
+            text-align: center;
+		}
+		#restartButton {
+			padding: 10px 10px 10px 10px;
+			border-radius: 20px;
+			border: 5px solid #A0522D;
+			background-color: #DEB887;
+			position: absolute;
+            left: 595px;
+            top: 480px;
+
+		}
+	</style>
 </head>
 <body>
-	<div id="firstWordsForm">
-		<form action="" id="form"> 
-			<p><b>Введите слова, которые хотите запомнить(через запятую):</b></p>
-			<input type="text" size="50" id="playerWords" name="playerWordsName">
-			<input type="button" value="Принять" onclick="game()">
-		</form>
+	<div id="gameName">
+		<h1>Загадал? Вспоминай!</h1>
+	</div>
+	<div id="info" style="display: block;">
+		<p>В этой игре вы сможете тренировать свою память. Нужно ввести сколько угодно слов в поле ввода и начать игру. На экране появится список этих слов в перемешанном порядке. Вы должны запомнить все слова и спустя 10 секунд начать вписывать их в поле ввода. За каждое слово вы будете получать кол-во очков, которое соответствует длинне слова. Попробуйте набрать максимальное количество очков!</p>
+	</div>
+	<div id="footer">
+		<p>.DevCIT Проект №3.Темирбек Алмаз Нуртаз.Группа №3.2018.</p>
+	</div>
+	<div id="firstWordsForm" style="display: block;">
+				<form action="" id="form">              // первая форма
+					<p><b>Введите слова, которые хотите запомнить (через запятую):</b></p>
+					<input type="text" size="70" id="playerWords" name="playerWordsName">
+					<input type="button" style="width:100px;height:30px" value="Начать игру!" onclick="game()">
+				</form>
+	</div>
+	<div id="secondWordsForm" style="display: none;">
+			<form action="" id="form2">                 // вторая форма
+				<p><b>Введите слова, которые успели запомнить(через запятую):</b></p>
+				<input type="text" size="50" id="playerWords2" name="playerWordsName2">
+				<input type="button" style="width:100px;height:30px" value="Проверить!" onclick="showResults()">
+			</form>
 	</div>	
 	<script type="text/javascript">
-				function game(){
-					show();
+				var words = form.playerWordsName.value; // берем слова из формы
+				var wordsList = words.toLowerCase().split(/\s*,\s*/); // создаем массив со словами из формы с маленькими буквами и без пробелов 
+				function mix() {                        // перемешиваем слова
+  					return Math.random() - 0.5;
 				}
+				wordsList.sort(mix);
 				function show(){
-			var words = form.playerWordsName.value;
-			var wordsList = words.toLowerCase().split(/\s*,\s*/); //массив со словами из формы с маленькими буквами и без пробелов 
-			document.write(wordsList);
-		}	
+					words = form.playerWordsName.value;
+					wordsList = words.toLowerCase().split(/\s*,\s*/); 
+					document.getElementById('showWords').innerHTML=(wordsList.sort(mix)); // выводит перемешанные слова
+					document.getElementById('firstWordsForm').style.display = 'none'; // прячет первую форму
+					document.getElementById('info').style.display = 'none'; // прячем описание и инструкцию
+				}
+				var counter = 10;  // счетчик таймера
+				function timer (){ // таймер
+					counter--;
+					timeoutID = setTimeout("timer()", 1000);
+					if (counter == 0) {document.getElementById('secondWordsForm').style.display = 'block', // показываем вторую форму
+						document.getElementById('showWordsParagraph').style.display = 'none', clearTimeout(timeoutID)} // прячем перемешанные слова и выключаем таймер
+				}
+				function game(){  //функция, которая срабатывает по нажатию кнопки в первой форме
+					mix();
+					show();
+					timer();
+				}
+				function showResults(){ // показываем результаты
+				var words2 = form2.playerWordsName2.value; // берем слова из второй формы
+				var wordsList2 = words2.toLowerCase().split(/\s*,\s*/); // создаем второй массив со словами из формы с маленькими буквами и без пробелов 
+				var results = wordsList.filter(function(i) { return wordsList2.indexOf(i) >= 0; }); // создаем третий массив с результатом отгаданных слов без повторов
+				var str = results.join('');
+				resultText = 'Поздравляю!!! Вы набрали ' + str.length + ' очка(ов)'
+				document.getElementById('showPlayersResults').innerHTML=resultText
+				document.getElementById('secondWordsForm').style.display = 'none' // прячем вторую форму
+				document.getElementById('restartButton').style.display = 'block' // показываем кнопку рестарта игры
+				}
+				function refreshPage(){ // перезагрузка страницы
+        			window.location.reload();
+    			} 
+
+
 	</script>
-	<p id="playerWordsParagraph"></p>
-	</body>
+	<div id="showWordsParagraph" style="display: block;">
+				<p id="showWords"></p>
+				
+	</div>
+	<div id="showResultsParagraph">
+				<p id="showPlayersResults"></p>
+	</div>
+	<div id="restartButton" style="display: none;">
+		<button type="button" style="width:100px;height:30px" onClick="refreshPage()">Рестарт игры</button>
+	</div>
+</body>
 </html>
