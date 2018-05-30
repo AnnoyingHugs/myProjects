@@ -8,8 +8,8 @@
 		function timer (){
 			counter--;
 			document.getElementById("count").innerHTML = counter;
-			setTimeout("timer()", 1000);
-			if (counter == 0) {alert(10)}
+			timeoutId = setTimeout("timer()", 1000);
+			if (counter == 0) {alert(10), clearTimeout(timeoutId)}
 		}
 	</script>
 </head>
